@@ -2,17 +2,17 @@ public class Client {
     private String Nom;
     private int Id;
     private String Adresse;
-    protected PlaneTicket à[];
-    protected HotelBooking reservedClientHotel[];
-    protected Stay client[];
-    protected Stay guest[];
     private PlaneTicket[] travelDocument;
+    protected HotelBooking[] reservedClientHotel;
+    protected Stay[] client;
+    protected Stay[] guest;
+    
 
-    public Client() {
+    Client() {
 
     }
 
-    public Client(String Nom, int Id, String Adresse) {
+    Client(String Nom, int Id, String Adresse) {
         this.Nom = Nom;
         this.Id = Id;
         this.Adresse = Adresse;
@@ -101,6 +101,7 @@ public class Client {
         return this.client;
     }
 
+    @Override
     public String toString() {
         return "Client [Nom=" + Nom + ", Id=" + Id + ", Adresse=" + Adresse + "]";
     }
