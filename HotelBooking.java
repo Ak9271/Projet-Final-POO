@@ -12,7 +12,13 @@ public class HotelBooking {
     public HotelBooking() {
     }
 
-
+    public HotelBooking(int _nombreRoom, Date start, Date end, String _roomType, boolean smoking) {
+        this.nombreRoom = _nombreRoom;
+        this.start = start;
+        this.end = end;
+        this.roomType = _roomType;
+        this.smoking = smoking;
+    }
 
     public int getNombreRoom() {
         return nombreRoom;
