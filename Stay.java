@@ -76,5 +76,13 @@ public class Stay {
         return total;
     }
 
-
+    @Override
+    public String toString() {
+        return "Stay{" +
+                "start=" + start +
+                ", end=" + end +
+                ", transport=" + transport +
+                ", reservedStayHotel=" + reservedStayHotel +
+                '}';
+    }
 }
