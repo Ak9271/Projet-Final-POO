@@ -1,33 +1,32 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Stay {
-
-    private int nombreRoom;
+    // Attributes
     private Date start;
     private Date end;
-    private int nombreNuit;
-    private String roomType;
-    private boolean smoking;
+    private final ArrayList<PlaneTicket> transport = new ArrayList<>();
+    private final ArrayList<HotelBooking> reservedStayHotel = new ArrayList<>();
 
+    // Constructors
     public Stay() {
+        this.start = null;
+        this.end = null;
     }
 
-    public Stay(int nombreRoom, Date start, Date end, String roomType, boolean smoking) {
-        this.nombreRoom = nombreRoom;
+    public Stay(Date start, Date end) {
         this.start = start;
         this.end = end;
-        this.roomType = roomType;
-        this.smoking = smoking;
     }
 
-    public int getNombreRoom() {
-        return nombreRoom;
+    // Methods
+    public void setStay(int days) {
+        if (this.start != null) {
+            this.end = new Date(this.start.getTime() + (long) days * 24 * 60 * 60 * 1000);
+        }
     }
 
-    public void setNombreRoom(int nombreRoom) {
-        this.nombreRoom = nombreRoom;
-    }
-
+    // Getters and Setters
     public Date getStart() {
         return start;
     }
@@ -44,39 +43,51 @@ public class Stay {
         this.end = end;
     }
 
-    public int getNombreNuit() {
-        return nombreNuit;
+    public ArrayList<PlaneTicket> getTransport() {
+        return transport;
     }
 
-    public void setNombreNuit(int nombreNuit) {
-        this.nombreNuit = nombreNuit;
+    public void addTransport(PlaneTicket pt) {
+        this.transport.add(pt);
     }
 
-    public String getRoomType() {
-        return roomType;
+    public ArrayList<HotelBooking> getReservedStayHotel() {
+        return reservedStayHotel;
     }
 
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
+    public void addReservedStayHotel(HotelBooking hb) {
+        this.reservedStayHotel.add(hb);
     }
 
-    public boolean isSmoking() {
-        return smoking;
+    public double calculatePrice() {
+        double total = 0;
+        for (PlaneTicket pt : transport) {
+            total += pt.getPrice(); // Assuming PlaneTicket has a getPrice() method
+        }
+        for (HotelBooking hb : reservedStayHotel) {
+            total += hb.getPrice(); // Assuming HotelBooking has a getPrice() method
+        }
+        return total;
     }
 
-    public void setSmoking(boolean smoking) {
-        this.smoking = smoking;
+    public double calculatePrice(int days) {
+        double total = 0;
+        for (PlaneTicket pt : transport) {
+            total += pt.getPrice(); // Assuming PlaneTicket has a getPrice() method
+        }
+        for (HotelBooking hb : reservedStayHotel) {
+            total += hb.getPricePerDay() * days; // Assuming HotelBooking has a getPricePerDay() method
+        }
+        return total;
     }
 
     @Override
     public String toString() {
         return "Stay{" +
-                "nombreRoom=" + nombreRoom +
-                ", start=" + start +
+                "start=" + start +
                 ", end=" + end +
-                ", nombreNuit=" + nombreNuit +
-                ", roomType='" + roomType + '\'' +
-                ", smoking=" + smoking +
+                ", transport=" + transport +
+                ", reservedStayHotel=" + reservedStayHotel +
                 '}';
     }
 }
