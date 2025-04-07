@@ -2,13 +2,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Stay {
-    // Attributes
+
     private Date start;
     private Date end;
     private final ArrayList<PlaneTicket> transport = new ArrayList<>();
     private final ArrayList<HotelBooking> reservedStayHotel = new ArrayList<>();
 
-    // Constructors
     public Stay() {
         this.start = null;
         this.end = null;
@@ -18,15 +17,11 @@ public class Stay {
         this.start = start;
         this.end = end;
     }
-
-    // Methods
     public void setStay(int days) {
         if (this.start != null) {
             this.end = new Date(this.start.getTime() + (long) days * 24 * 60 * 60 * 1000);
         }
     }
-
-    // Getters and Setters
     public Date getStart() {
         return start;
     }
@@ -62,10 +57,10 @@ public class Stay {
     public double calculatePrice() {
         double total = 0;
         for (PlaneTicket pt : transport) {
-            total += pt.getPrice(); // Assuming PlaneTicket has a getPrice() method
+            total += pt.getPrice();
         }
         for (HotelBooking hb : reservedStayHotel) {
-            total += hb.getPrice(); // Assuming HotelBooking has a getPrice() method
+            total += hb.getPrice();
         }
         return total;
     }
@@ -73,21 +68,13 @@ public class Stay {
     public double calculatePrice(int days) {
         double total = 0;
         for (PlaneTicket pt : transport) {
-            total += pt.getPrice(); // Assuming PlaneTicket has a getPrice() method
+            total += pt.getPrice();
         }
         for (HotelBooking hb : reservedStayHotel) {
-            total += hb.getPricePerDay() * days; // Assuming HotelBooking has a getPricePerDay() method
+            total += hb.getPricePerDay() * days;
         }
         return total;
     }
 
-    @Override
-    public String toString() {
-        return "Stay{" +
-                "start=" + start +
-                ", end=" + end +
-                ", transport=" + transport +
-                ", reservedStayHotel=" + reservedStayHotel +
-                '}';
-    }
+
 }
