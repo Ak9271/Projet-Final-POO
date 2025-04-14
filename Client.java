@@ -5,12 +5,14 @@ public class Client implements Serializable {
     private String Nom;
     private int Id;
     private String Adresse;
-    private final ArrayList<PlaneTicket> travelDocument = new ArrayList<>();
+    protected final ArrayList<PlaneTicket> travelDocument = new ArrayList<>();
     protected final ArrayList<HotelBooking> reservedClientHotel = new ArrayList<>();
     protected final ArrayList<Stay> client = new ArrayList<>();
     protected final ArrayList<Stay> guest = new ArrayList<>();
 
-    public Client() {}
+    public Client() {
+        
+    }
 
     public Client(String Nom, int Id, String Adresse) {
         this.Nom = Nom;

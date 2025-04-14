@@ -7,13 +7,6 @@ public class Stay implements Serializable {
     private final ArrayList<PlaneTicket> transport;
     private final ArrayList<HotelBooking> reservedStayHotel;
 
-
-    public enum RoomType {
-        Single,
-        Double,
-        Family
-    }
-
     public Stay() {
         this.transport = new ArrayList<>();
         this.reservedStayHotel = new ArrayList<>();
@@ -22,7 +15,6 @@ public class Stay implements Serializable {
     public Stay(Date start, Date end) {
         this.start = start;
         this.end = end;
-        RoomType roomtype = RoomType.Single;
         this.transport = new ArrayList<>();
         this.reservedStayHotel = new ArrayList<>();
     }
