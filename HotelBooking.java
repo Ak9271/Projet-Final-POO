@@ -72,10 +72,6 @@ public class HotelBooking implements Serializable {
     public String toString() {
         return  "Nombre de chambres: " + nombreRoom +
                 "\n" +
-                "Début: " + Start +
-                "\n" +
-                "Fin: " + End +
-                "\n" +
                 "Nombre de Nuits: " + nombreNuit +
                 "\n" +
                 "Type de Chambre: " + roomType +

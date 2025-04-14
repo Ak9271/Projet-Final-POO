@@ -7,6 +7,13 @@ public class Stay implements Serializable {
     private final ArrayList<PlaneTicket> transport;
     private final ArrayList<HotelBooking> reservedStayHotel;
 
+
+    public enum RoomType {
+        Single,
+        Double,
+        Family
+    }
+
     public Stay() {
         this.transport = new ArrayList<>();
         this.reservedStayHotel = new ArrayList<>();
@@ -15,6 +22,7 @@ public class Stay implements Serializable {
     public Stay(Date start, Date end) {
         this.start = start;
         this.end = end;
+        RoomType roomtype = RoomType.Single;
         this.transport = new ArrayList<>();
         this.reservedStayHotel = new ArrayList<>();
     }
@@ -56,7 +64,27 @@ public class Stay implements Serializable {
     }
 
     public double calculatePrice() {
-        return transport.size() * 300 + reservedStayHotel.size() * 100;
+        double prixTotal = 0;
+        double prixAvion = 500;
+        for (PlaneTicket pt : transport) {
+            if (pt != null) {
+                prixTotal += prixAvion;
+            }
+        }
+        for (HotelBooking hb : reservedStayHotel) {
+            if (hb != null) {
+               int NbrNuit = hb.getNombreNuit();
+                String type = hb.getRoomType();
+                if (type.equals("Single")) {
+                    prixTotal += 100 * NbrNuit;
+                } else if (type.equals("Double")) {
+                    prixTotal += 150 * NbrNuit;
+                } else if (type.equals("Family")) {
+                    prixTotal += 200 * NbrNuit;
+                }
+            }
+        }
+        return prixTotal;
     }
 
     public double calculatePrice(int i) {
@@ -65,9 +93,6 @@ public class Stay implements Serializable {
 
     @Override
     public String toString() {
-        return "Stay [start=" + start +
-                ", end=" + end +
-                ", transport=" + transport.size() +
-                ", reservedStayHotel=" + reservedStayHotel.size() + "]";
+        return "Prix Total: " + calculatePrice();
     }
 }

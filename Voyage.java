@@ -2,15 +2,17 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Voyage extends JFrame {
-    private JTextField nomField, idField, adresseField, nbPersonnesField, caseReference;
+    private JTextField nomField, idField, adresseField, nbPersonnesField, caseReference, nbJoursField;
     private JComboBox<String> caseTypeRoom;
     private JCheckBox fumeur;
     private JTextArea espaceAffichage;
     private Client client;
+    private Stay stay;
 
     public Voyage() {
         super("Gestion de Voyage");
         client = new Client();
+        stay = new Stay();
         setLayout(new BorderLayout());
 
         JPanel clientPanel = new JPanel(new GridLayout(4, 2, 10, 10));
@@ -31,7 +33,7 @@ public class Voyage extends JFrame {
         JButton creerClient = new JButton("Créer Client");
         clientPanel.add(creerClient);
 
-        JPanel hotelPanel = new JPanel(new GridLayout(4, 2, 10, 10));
+        JPanel hotelPanel = new JPanel(new GridLayout(6, 2, 10, 10));
         hotelPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         hotelPanel.add(new JLabel("Nombre de personnes :"));
@@ -39,15 +41,22 @@ public class Voyage extends JFrame {
         hotelPanel.add(nbPersonnesField);
 
         hotelPanel.add(new JLabel("Type de chambre :"));
-        caseTypeRoom = new JComboBox<>(new String[]{"Simple", "Double", "Family"});
+        caseTypeRoom = new JComboBox<>(new String[]{"Single", "Double", "Family"});
         hotelPanel.add(caseTypeRoom);
 
         hotelPanel.add(new JLabel("Fumeur :"));
         fumeur = new JCheckBox("Oui");
         hotelPanel.add(fumeur);
 
+        hotelPanel.add(new JLabel("Nombre de jours :"));
+        nbJoursField = new JTextField(10);
+        hotelPanel.add(nbJoursField);
+
         JButton reserverHotel = new JButton("Réserver Hôtel");
         hotelPanel.add(reserverHotel);
+
+        JButton calculerTotal = new JButton("Calculer Total");
+        hotelPanel.add(calculerTotal);
 
         JPanel avionPanel = new JPanel(new GridLayout(2, 2, 10, 10));
         avionPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -61,8 +70,8 @@ public class Voyage extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Client", clientPanel);
-        tabbedPane.addTab("Hôtel", hotelPanel);
         tabbedPane.addTab("Avion", avionPanel);
+        tabbedPane.addTab("Hôtel", hotelPanel);
 
         espaceAffichage = new JTextArea(10, 40);
         espaceAffichage.setEditable(false);
@@ -87,18 +96,26 @@ public class Voyage extends JFrame {
                 int nb = Integer.parseInt(nbPersonnesField.getText());
                 String type = caseTypeRoom.getSelectedItem().toString();
                 boolean estFumeur = fumeur.isSelected();
+                int nbJours = Integer.parseInt(nbJoursField.getText());
 
                 HotelBooking reserver = new HotelBooking();
                 reserver.setNombreRoom(nb);
                 reserver.setRoomType(type);
                 reserver.setSmoking(estFumeur);
+                reserver.setNombreNuit(nbJours);
 
                 client.addReservedClientHotel(reserver);
+                stay.addReservedStayHotel(reserver);
 
                 espaceAffichage.append("L'hôtel a bien été réservé:\n" + reserver.toString() + "\n\n");
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Nombre de personnes invalide !");
+                JOptionPane.showMessageDialog(null, "Nombre de personnes ou nombre de jours invalide !");
             }
+        });
+
+        calculerTotal.addActionListener(e -> {
+            double total = stay.calculatePrice();
+            espaceAffichage.append("Montant total des réservations : " + total + " €\n\n");
         });
 
         reserverAvion.addActionListener(e -> {
@@ -106,6 +123,7 @@ public class Voyage extends JFrame {
             if (!ref.isEmpty()) {
                 PlaneTicket ticket = new PlaneTicket(ref);
                 client.addTravelDocument(ticket);
+                stay.addTransport(ticket);
                 espaceAffichage.append(ticket.toString() + "\n\n");
                 caseReference.setText("");
             } else {
