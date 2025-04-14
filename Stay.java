@@ -1,21 +1,28 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Stay {
+public class Stay implements Serializable {
     private Date start;
     private Date end;
-    private final ArrayList<PlaneTicket> transport = new ArrayList<>();
-    private final ArrayList<HotelBooking> reservedStayHotel = new ArrayList<>();
+    private final ArrayList<PlaneTicket> transport;
+    private final ArrayList<HotelBooking> reservedStayHotel;
 
-    Stay() {
-        this.start = new Date();
-        this.end = new Date();
+    public Stay() {
+        this.transport = new ArrayList<>();
+        this.reservedStayHotel = new ArrayList<>();
     }
 
-    Stay(Date start, Date end) {
+    public Stay(Date start, Date end) {
         this.start = start;
         this.end = end;
+        this.transport = new ArrayList<>();
+        this.reservedStayHotel = new ArrayList<>();
     }
-  
+
+    public void setStay(int i) {
+
+    }
+
     public Date getStart() {
         return start;
     }
@@ -49,20 +56,18 @@ public class Stay {
     }
 
     public double calculatePrice() {
-        double total = 0;
+        return transport.size() * 300 + reservedStayHotel.size() * 100;
     }
 
     public double calculatePrice(int i) {
-        double total = 0;
+        return calculatePrice() * i;
     }
 
     @Override
     public String toString() {
-        return "Stay [" +
-                "start=" + start +
+        return "Stay [start=" + start +
                 ", end=" + end +
-                ", transport=" + transport +
-                ", reservedStayHotel=" + reservedStayHotel +
-                ']';
+                ", transport=" + transport.size() +
+                ", reservedStayHotel=" + reservedStayHotel.size() + "]";
     }
 }

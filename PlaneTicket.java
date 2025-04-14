@@ -1,16 +1,16 @@
-public class PlaneTicket {
+import java.io.Serializable;
+
+public class PlaneTicket implements Serializable {
     private String Reference;
 
-    PlaneTicket() {
-        this.Reference = "";
-    }
+    public PlaneTicket() {}
 
-    PlaneTicket(String reference) {
+    public PlaneTicket(String reference) {
         this.Reference = reference;
     }
 
     public String getReference() {
-        return this.Reference;
+        return Reference;
     }
 
     public void setReference(String reference) {
@@ -19,6 +19,6 @@ public class PlaneTicket {
 
     @Override
     public String toString() {
-        return "LA référence du ticket est : " + this.Reference;
+        return "La référence du ticket est : " + Reference;
     }
 }

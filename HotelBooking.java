@@ -1,6 +1,6 @@
-import java.util.Date;
+import java.io.Serializable;
 
-public class HotelBooking {
+public class HotelBooking implements Serializable {
     private int nombreRoom;
     private Date Start;
     private Date End;
@@ -8,20 +8,20 @@ public class HotelBooking {
     private String roomType;
     private boolean Smoking;
 
-    HotelBooking() {
-
+    public HotelBooking() {
+        
     }
 
-    HotelBooking(int _nombreRoom, Date Start, Date End, String _roomType, boolean Smoking) {
-        this.nombreRoom = _nombreRoom;
+    public HotelBooking(int nombreRoom, Date Start, Date End, String roomType, boolean Smoking) {
+        this.nombreRoom = nombreRoom;
         this.Start = Start;
         this.End = End;
-        this.roomType = _roomType;
+        this.roomType = roomType;
         this.Smoking = Smoking;
     }
 
     public int getNombreRoom() {
-        return this.nombreRoom;
+        return nombreRoom;
     }
 
     public void setNombreRoom(int nombreRoom) {
@@ -29,7 +29,7 @@ public class HotelBooking {
     }
 
     public Date getStart() {
-        return this.Start;
+        return Start;
     }
 
     public void setStart(Date Start) {
@@ -37,7 +37,7 @@ public class HotelBooking {
     }
 
     public Date getEnd() {
-        return this.End;
+        return End;
     }
 
     public void setEnd(Date End) {
@@ -45,7 +45,7 @@ public class HotelBooking {
     }
 
     public int getNombreNuit() {
-        return this.nombreNuit;
+        return nombreNuit;
     }
 
     public void setNombreNuit(int nombreNuit) {
@@ -53,15 +53,15 @@ public class HotelBooking {
     }
 
     public String getRoomType() {
-        return this.roomType;
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public boolean isSmoking() {
-        return this.Smoking;
-    }
-    
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
+        return Smoking;
     }
 
     public void setSmoking(boolean Smoking) {
@@ -70,13 +70,16 @@ public class HotelBooking {
 
     @Override
     public String toString() {
-        return "HotelBooking{" +
-                "nombreRoom=" + nombreRoom +
-                ", Start=" + Start +
-                ", End=" + End +
-                ", nombreNuit=" + nombreNuit +
-                ", roomType='" + roomType + '\'' +
-                ", Smoking=" + Smoking +
-                '}';
+        return  "Nombre de chambres: " + nombreRoom +
+                "\n" +
+                "Début: " + Start +
+                "\n" +
+                "Fin: " + End +
+                "\n" +
+                "Nombre de Nuits: " + nombreNuit +
+                "\n" +
+                "Type de Chambre: " + roomType +
+                "\n" +
+                "Fumeur: " + Smoking;
     }
 }
